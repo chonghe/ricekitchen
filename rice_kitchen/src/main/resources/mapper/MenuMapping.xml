@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cping.ricekitchenpos.dao.MenuDao">
+    <select id="getOftenGoods" resultType="com.cping.ricekitchenpos.entity.Menu">
+        select * from menu where state=1
+    </select>
+
+    <select id="getAllUser" resultType="com.cping.ricekitchenpos.entity.Menu">
+        --      如果username不是空,就拼接模糊查询
+        select * from menu
+        <if test="title !=null">
+            where title like #{title}
+        </if>
+        limit #{pageStart},#{pageSize}
+    </select>
+
+    <select id="getUserCounts" resultType="java.lang.Integer">
+        select count(*) from menu
+        <if test="title !=null">
+            where title like #{title}
+        </if>
+    </select>
+
+    <update id="updateState">
+        update menu set state = #{state} where id=#{id}
+    </update>
+
+    <insert id="addUser">
+        insert into menu
+            (code,title,price,state,cid)
+            value
+            (#{code},#{title},#{price},#{state},#{cid})
+    </insert>
+
+    <delete id="deleteUser">
+        delete from menu where id = #{id}
+    </delete>
+
+    <select id="getUpdateUser" resultType="com.cping.ricekitchenpos.entity.Menu">
+        select * from menu where id = #{id}
+    </select>
+
+    <update id="editUser">
+        update easyuser set username=#{code}, password=#{title},
+                            email=#{price} where id=#{id}
+    </update>
+
+    <select id="getType0Goods" resultType="com.cping.ricekitchenpos.entity.Menu">
+        select * from menu where cid in (101,102,105)
+    </select>
+
+    <select id="getType1Goods" resultType="com.cping.ricekitchenpos.entity.Menu">
+        select * from menu where cid in (103,104,107)
+    </select>
+
+    <select id="getType2Goods" resultType="com.cping.ricekitchenpos.entity.Menu">
+        select * from menu where cid=106
+    </select>
+
+    <select id="getType3Goods" resultType="com.cping.ricekitchenpos.entity.Menu">
+        select * from menu where cid in (108,109)
+    </select>
+
+    <select id="getType4Goods" resultType="com.cping.ricekitchenpos.entity.Menu">
+        select * from menu where cid in (110,111,13)
+    </select>
+
+    <select id="getType5Goods" resultType="com.cping.ricekitchenpos.entity.Menu">
+        select * from menu where cid in (112)
+    </select>
+</mapper>
