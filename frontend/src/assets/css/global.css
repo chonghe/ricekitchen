@@ -1,0 +1,79 @@
+.pos-order {
+    background-color: #f9fafc;
+    border-right: 1px solid #c0ccda;
+    height: 100%;
+  }
+  .div-btn {
+    margin-top: 10px;
+  }
+  .title {
+    height: 20px;
+    border-bottom: 1px solid #d3dce6;
+    background-color: #f9fafc;
+    padding: 10px;
+    text-align: left;
+  }
+  .often-goods-list ul li {
+    list-style: none;
+    float: left;
+    border: 1px solid #e5e9f2;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  .o-price{
+      color: #58b7ff;
+  }
+  .goods-type {
+    clear: both;
+    /* height: auto;
+    overflow: hidden;
+    border-top: 1px solid #d3dce6; */
+  }
+  .cookList li {
+    list-style: none;
+    width: 23%;
+    border: 1px solid #e5e9f2;
+    height: 70px;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 2px;
+    float: left;
+    margin: 2px;
+    cursor: pointer;
+  }
+  .cookList li span {
+    /* padding: 2px; */
+    display: block;
+    height: 60px;
+    float: left;
+  }
+  .foodImg {
+    width: 40%;
+  }
+  .foodName {
+    font-size: 18px;
+    padding-left: 10px;
+    color: brown;
+    text-align: center;
+  }
+  .foodPrice {
+    font-size: 16px;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+  .totalDiv{
+      background-color: #fff;
+      padding: 10px;
+      border-bottom: 1px solid #d3dce6;
+  }
+  /* .el-table{
+  overflow:hidden !important;
+  } */
+  span{
+    white-space:pre;
+  }
+  .el-input{
+    margin: 5px 0;
+  }

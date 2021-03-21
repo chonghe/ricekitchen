@@ -5,8 +5,8 @@ spring:
     driverClassName:  com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://168.138.40.98:3306/ricekitchen
 #    ?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
-    username: dev
-    password: Rice_Kitchen1
+    username: admin
+    password: Pz+20180101
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

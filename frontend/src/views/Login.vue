@@ -10,11 +10,11 @@
             <el-form ref="loginFormRef" :rules="loginRules" :model="loginForm" class="login_form" label-width="0">
                 <!-- user name -->
                 <el-form-item prop="username">
-                    <el-input v-model="loginForm.username"></el-input>
+                    <el-input v-model="loginForm.username" prefix-icon="iconfont icon-user" placeholder="User Name"></el-input>
                 </el-form-item>
                 <!-- password -->
                 <el-form-item prop="password">
-                    <el-input v-model="loginForm.password" type="password"></el-input>
+                    <el-input v-model="loginForm.password" type="password" prefix-icon="iconfont icon-3702mima" placeholder="Password"></el-input>
                 </el-form-item>
                 <!-- button -->
                 <el-form-item class="btns">

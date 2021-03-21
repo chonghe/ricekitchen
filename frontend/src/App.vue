@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import leftNav from './components/commonn/LeftNav'
+import leftNav from './components/common/LeftNav'
 
 export default {
   name:'app',
