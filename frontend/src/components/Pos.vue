@@ -3,14 +3,10 @@
     <div>
       <el-row>
         <el-col :span="7" class="pos-order" id="order-list">
-          <el-tabs>
-            <!-- <dinein :tableData="tableData" 
-                  :totlaMoney="totlaMoney" 
-                  :totalCount="totalCount"  
-                  @delAllGoods="childTableData" 
-                  @delSingleGoods="childTableData"
-                  @getAllMoney="childTotalData"></dinein> -->
-            <el-tab-pane label="Dine In">
+          <el-tabs v-model="leftActiveName" @tab-click="test">
+            <!-- Dine In -->
+            <el-tab-pane label="Dine In" name="dinein" id="1">
+              <!-- Order List  -->
               <orderlist
                 :tableData="tableData"
                 :totlaMoney="totlaMoney"
@@ -20,35 +16,102 @@
                 @getAllMoney="childGetAllMoney"
               ></orderlist>
             </el-tab-pane>
-            <el-tab-pane label="Pick Up">
-              <el-card>
-                <el-input
+            <!-- Pick Up Tabs -->
+            <el-tab-pane label="Pick Up" name="pickup">
+              <el-form ref="pickup" :model="pickup" label-width="80px">
+                <el-form-item label="Phone">
+                  <el-input
                   placeholder="Phone Number"
                   prefix-icon="el-icon-phone"
                   v-model="pickup.mobile"
-                >
-                </el-input>
-                <el-input
+                  >
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="Name">
+                  <el-input
                   placeholder="Customer Name"
                   prefix-icon="el-icon-user"
                   v-model="pickup.username"
                 >
                 </el-input>
-                <el-input
+                </el-form-item>
+                <el-form-item label="Remark">
+                  <el-input
                   placeholder="Remark"
                   prefix-icon="el-icon-collection-tag"
                   v-model="pickup.remark"
                 >
                 </el-input>
-                <el-input
-                  placeholder="Desc"
-                  prefix-icon="el-icon-notebook-2"
+                </el-form-item>
+                <el-form-item label="Desc">
+                  <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="Description"
+                  prefix-icon="el-icon-s-comment"
                   v-model="pickup.desc"
                 >
                 </el-input>
-              </el-card>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="danger">Cancel</el-button
+                  >
+                  <el-button type="success" @click="toDinein">Submit</el-button>
+                </el-form-item>
+              </el-form>
             </el-tab-pane>
-            <el-tab-pane label="Delivery"> Delivery </el-tab-pane>
+            <!-- Delivery Tab -->
+            <el-tab-pane label="Delivery" name="delivery">
+              <el-form ref="delivery" :model="delivery" label-width="80px">
+                <el-form-item label="Phone">
+                  <el-input
+                  placeholder="Phone Number"
+                  prefix-icon="el-icon-phone"
+                  v-model="delivery.mobile"
+                  >
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="Address">
+                  <el-input
+                  placeholder="Address"
+                  prefix-icon="el-icon-s-home"
+                  v-model="delivery.address"
+                  >
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="Name">
+                  <el-input
+                  placeholder="Customer Name"
+                  prefix-icon="el-icon-user"
+                  v-model="delivery.username"
+                >
+                </el-input>
+                </el-form-item>
+                <el-form-item label="Remark">
+                  <el-input
+                  placeholder="Remark"
+                  prefix-icon="el-icon-collection-tag"
+                  v-model="delivery.remark"
+                >
+                </el-input>
+                </el-form-item>
+                <el-form-item label="Desc">
+                  <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="Description"
+                  prefix-icon="el-icon-s-comment"
+                  v-model="delivery.desc"
+                >
+                </el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="danger">Cancel</el-button
+                  >
+                  <el-button type="success" @click="toDinein">Submit</el-button>
+                </el-form-item>
+              </el-form>
+            </el-tab-pane>
           </el-tabs>
         </el-col>
         <el-col :span="17">
@@ -179,6 +242,25 @@
                 </div>
               </el-tab-pane>
             </el-tabs> -->
+            <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+              <el-form :model="form">
+                <el-form-item label="活动名称" :label-width="formLabelWidth">
+                  <el-input v-model="form.name" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="活动区域" :label-width="formLabelWidth">
+                  <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-option label="区域一" value="shanghai"></el-option>
+                    <el-option label="区域二" value="beijing"></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-form>
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogFormVisible = false"
+                  >确 定</el-button
+                >
+              </div>
+            </el-dialog>
           </div>
         </el-col>
       </el-row>
@@ -205,6 +287,13 @@ export default {
         remark: "",
         desc: "",
       },
+      delivery:{
+        mobile:'',
+        address:'',
+        username:'',
+        remark: "",
+        desc: "",
+      },
       totlaMoney: 0,
       totalCount: 0,
       tableData: [],
@@ -218,6 +307,20 @@ export default {
       type5Goods: [],
       num: 0,
       activeName: "type0",
+      leftActiveName:"dinein",
+
+      dialogFormVisible: false,
+      form: {
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      formLabelWidth: '120px'
     };
   },
   created() {
@@ -321,6 +424,12 @@ export default {
       this.totlaMoney = childValue1;
       this.totalCount = childValue2;
     },
+    toDinein(){
+      this.leftActiveName = "dinein"
+    },
+    test(tab,event){
+      console.log(tab.$attrs['id'])
+    }
   },
   filters: {
     numFilter(value) {
