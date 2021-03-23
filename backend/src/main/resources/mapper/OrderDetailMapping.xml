@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cping.ricekitchenpos.dao.OrderDetailDao">
+    <select id="getDetailByOid" resultMap="detailMap">
+        select  * from orderdetail where oid = #{oid}
+    </select>
+
+    <resultMap id="detailMap" type="com.cping.ricekitchenpos.entity.OrderDetail">
+
+    </resultMap>
+</mapper>

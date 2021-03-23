@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cping.ricekitchenpos.dao.OrderDao">
+    <select id="getOrderById" resultMap="orderMap">
+        select * from order where id = #{id}
+    </select>
+
+    <resultMap id="orderMap" type="com.cping.ricekitchenpos.entity.Order">
+        <id property="oid" column="id"></id>
+        <!--
+            result代表普通字段的映射，分别指定列与属性的对应
+
+            如果字段名和属性名一致，可以省略
+
+            属性名叫做payType，字段名pay_type;
+            <result column="pay_type" property="payType" />
+        -->
+        <result column="price" property="price"/>
+        <result column="paytype" property="paytype"/>
+        <!--
+            association关联，只要是"对一"的关系都可以使用association，代表关联
+            property代表Order类中的属性名u
+            column代表Orders表中的uid字段
+            select代表要使用该查询完成两表的联合查询得出user对象
+        -->
+        <association property="customer" column="cid" select="CustomerMapping.getCustomerById"></association>
+        <!--
+            collection 设置集合，只要是“对多”关系，都可以用collection代表集合
+            column代表的是orders表与details表关联的字段
+        -->
+        <collection property="orderdetail"  column="oid" select="OrderDetailMapping.getDetailByOid" ofType="com.cping.ricekitchenpos.entity.OrderDetail"/>
+    </resultMap>
+</mapper>
