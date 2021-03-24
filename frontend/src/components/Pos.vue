@@ -114,7 +114,7 @@
             </el-tab-pane>
           </el-tabs>
         </el-col>
-        <el-col :span="17">
+        <el-col v-show="leftActiveName=='dinein'" :span="17">
           <!-- popular goods -->
           <div class="often-goods">
             <div class="title">Popular Food</div>

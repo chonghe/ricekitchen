@@ -8,7 +8,7 @@
     </select>
 
     <resultMap id="orderMap" type="com.cping.ricekitchenpos.entity.Order">
-        <id property="oid" column="id"></id>
+        <id property="id" column="id"></id>
         <!--
             result代表普通字段的映射，分别指定列与属性的对应
 

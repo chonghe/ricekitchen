@@ -6,4 +6,7 @@
     <select id="getCustomerById" resultType="com.cping.ricekitchenpos.entity.Customer">
         select * from customer where id = #{id}
     </select>
+    <select id="getAllCustomer" resultType="com.cping.ricekitchenpos.entity.Customer">
+        select * from customer
+    </select>
 </mapper>

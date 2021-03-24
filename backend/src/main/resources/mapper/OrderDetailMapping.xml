@@ -8,6 +8,8 @@
     </select>
 
     <resultMap id="detailMap" type="com.cping.ricekitchenpos.entity.OrderDetail">
-
+        <id column="id" property="id"></id>
+        <result property="count" column="count"/>
+        <association property="menu" column="mid" select="MenuMapping.getMenuById"/>
     </resultMap>
 </mapper>
