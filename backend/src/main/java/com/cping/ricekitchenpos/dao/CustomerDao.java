@@ -1,6 +1,7 @@
 package com.cping.ricekitchenpos.dao;
 
 import com.cping.ricekitchenpos.entity.Customer;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,5 +10,7 @@ import java.util.List;
 public interface CustomerDao {
     public List<Customer> getAllCustomer();
 
-    public Customer getCustomerById(int id);
+    public List<Customer> getCustomerByMobile(@Param("mobile") String mobile);
+
+    Customer getCustomerById(@Param("id") Integer id);
 }

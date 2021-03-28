@@ -23,6 +23,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/ricekitchen/customer")
+@CrossOrigin
 public class CustomerController {
     @Autowired
     CustomerMapper customerMapper;
@@ -48,6 +49,22 @@ public class CustomerController {
         return null;
     }
 
+    @PutMapping("/updateCustomer")
+    public Result updateCustomer(@RequestBody Customer customer) {
+        int i = customerMapper.updateById(customer);
+        if (i == 0) {
+            return Result.fail("Update customer failed");
+        }
+        return null;
+    }
 
+    @DeleteMapping("/deleteCustomer/{id}")
+    public Result deleteCustomer(@PathVariable("id") Integer id) {
+        int i = customerMapper.deleteById(id);
+        if (i == 0) {
+            return Result.fail("Delete customer failed");
+        }
+        return null;
+    }
 }
 

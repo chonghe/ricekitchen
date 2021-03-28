@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @author cping
  * @since 2021-03-27
  */
-//@Repository
+@Repository
 public interface UserMapper extends BaseMapper<User> {
 
 }

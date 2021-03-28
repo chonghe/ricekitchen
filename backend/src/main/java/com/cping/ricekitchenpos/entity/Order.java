@@ -14,5 +14,5 @@ public class Order {
     private double price;
     private String paytype;
     private Customer customer;
-    private List<OrderDetail> orderdetail;
+    private List<OrderDetail> orderDetails;
 }

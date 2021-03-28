@@ -12,4 +12,6 @@ public class Customer {
     private String name;
     private String mobile;
     private String address;
+    private String remark;
+    private String desc;
 }

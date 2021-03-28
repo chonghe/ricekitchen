@@ -10,6 +10,6 @@
     <resultMap id="detailMap" type="com.cping.ricekitchenpos.entity.OrderDetail">
         <id column="id" property="id"></id>
         <result property="count" column="count"/>
-        <association property="menu" column="mid" select="MenuMapping.getMenuById"/>
+        <collection property="menu" column="mid" ofType="Menu" select="com.cping.ricekitchenpos.dao.MenuDao.getMenuById"/>
     </resultMap>
 </mapper>

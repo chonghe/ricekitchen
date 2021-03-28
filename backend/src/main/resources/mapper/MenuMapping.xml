@@ -3,6 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cping.ricekitchenpos.dao.MenuDao">
+    <select id="getMenuById" resultMap="menuMap">
+        select * from menu where id = #{id}
+    </select>
+    <resultMap id="menuMap" type="com.cping.ricekitchenpos.entity.Menu">
+        <id property="id" column="id"/>
+        <result column="code" property="code"/>
+        <result property="title" column="title"/>
+        <result property="price" column="price"/>
+        <result property="state" column="state"/>
+        <result property="cid" column="cid"/>
+    </resultMap>
     <select id="getOftenGoods" resultType="com.cping.ricekitchenpos.entity.Menu">
         select * from menu where state=1
     </select>

@@ -2,13 +2,17 @@ package com.cping.ricekitchenpos.dao;
 
 import com.cping.ricekitchenpos.entity.Menu;
 import com.cping.ricekitchenpos.entity.TypeMenu;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Mapper
 @Repository
 public interface MenuDao {
+    Menu getMenuById(@Param("id") Integer id);
+
     public List<Menu> getOftenGoods();
 
     public List<Menu> getAllUser(@Param("title") String title, @Param("pageStart") int pageStart, @Param("pageSize") int pageSize);
