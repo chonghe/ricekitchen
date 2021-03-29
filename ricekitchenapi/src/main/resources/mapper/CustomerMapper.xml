@@ -11,6 +11,16 @@
         <result property="mobile" column="mobile"/>
         <result property="address" column="address"/>
         <result property="remark" column="remark"/>
-        <result property="desc" column="desc"/>
+        <result property="description" column="description"/>
+        <!--<result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="deleted" column="deleted"/>-->
     </resultMap>
+
+    <insert id="insertCustomer" parameterType="Customer" useGeneratedKeys="true" keyProperty="id">
+        insert into customer (name,mobile,address,remark,description)
+        values (#{name},#{mobile},#{address},#{remark},#{description})
+    </insert>
+    
+    <insert id="insertOrderWithCustomer" parameterType="Orderlist"
 </mapper>

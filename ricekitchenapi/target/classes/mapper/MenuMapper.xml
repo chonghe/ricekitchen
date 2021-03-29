@@ -5,4 +5,16 @@
     <update id="updateState">
         update menu set state = #{state} where id=#{id}
     </update>
+
+    <select id="getMenuById" resultMap="menuMap">
+        select * from menu where id = #{id}
+    </select>
+    <resultMap id="menuMap" type="com.cping.ricekitchen.entity.Menu">
+        <id property="id" column="id"/>
+        <result column="code" property="code"/>
+        <result property="title" column="title"/>
+        <result property="price" column="price"/>
+        <result property="state" column="state"/>
+        <result property="cid" column="cid"/>
+    </resultMap>
 </mapper>

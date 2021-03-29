@@ -7,6 +7,7 @@ import com.cping.ricekitchen.entity.Customer;
 import com.cping.ricekitchen.entity.User;
 import com.cping.ricekitchen.mapper.CustomerMapper;
 import com.cping.ricekitchen.service.CustomerService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,12 @@ public class CustomerController {
     public Result getCustomerByMobile(@PathVariable("mobile") String mobile) {
         List<Map<String, Object>> list = customerMapper.selectMaps(new QueryWrapper<Customer>().like("mobile", mobile));
         return Result.success(list);
+    }
+
+    @GetMapping("/getCustomerById")
+    public Result getCustomerById(@Param("id") Integer id) {
+        Customer customerById = customerMapper.getCustomerById(id);
+        return Result.success(customerById);
     }
 
     @PostMapping("/insertCustomer")

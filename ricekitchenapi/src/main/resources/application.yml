@@ -8,6 +8,8 @@ spring:
     password: Pz+20180101
 
 mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.cping.ricekitchen.entity
   global-config:
     db-config:
       logic-delete-value: 1

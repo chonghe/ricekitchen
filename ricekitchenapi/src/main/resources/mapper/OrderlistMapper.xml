@@ -12,6 +12,10 @@
         <result column="paytype" property="paytype"/>
         <association property="customer" column="cid" javaType="Customer" select="com.cping.ricekitchen.mapper.CustomerMapper.getCustomerById"></association>
 
-        <collection property="orderDetails"  column="id" select="com.cping.ricekitchen.mapper.OrderdetailMapper.getDetailByOid" ofType="com.cping.ricekitchenpos.entity.Orderdetail"/>
+        <collection property="orderDetails"  column="id" select="com.cping.ricekitchen.mapper.OrderdetailMapper.getDetailByOid" ofType="com.cping.ricekitchen.entity.Orderdetail"/>
     </resultMap>
+
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into orderlist (cid,price,paytype) values (#{customer.id},#{price},#{paytype})
+    </insert>
 </mapper>

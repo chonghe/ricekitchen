@@ -26,11 +26,7 @@ public class Orderdetail implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Integer mid;
-
-    private Integer oid;
-
     private Integer count;
 
-
+    private Menu menu;
 }

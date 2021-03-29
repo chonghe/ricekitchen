@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,11 +32,15 @@ public class Orderlist implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Integer cid;
+    //private Integer cid;
 
     private Double price;
 
     private String paytype;
+
+    private Customer customer;
+
+    private List<Orderdetail> orderDetails;
 
     @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;

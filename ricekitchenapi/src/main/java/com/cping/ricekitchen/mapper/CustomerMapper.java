@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Repository
 public interface CustomerMapper extends BaseMapper<Customer> {
-    public List<Customer> getCustomerByMobile(@Param("mobile") String mobile);
+    //public List<Customer> getCustomerByMobile(@Param("mobile") String mobile);
 
     Customer getCustomerById(@Param("id") Integer id);
 
