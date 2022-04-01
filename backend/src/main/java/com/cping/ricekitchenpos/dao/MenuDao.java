@@ -15,19 +15,19 @@ public interface MenuDao {
 
     public List<Menu> getOftenGoods();
 
-    public List<Menu> getAllUser(@Param("title") String title, @Param("pageStart") int pageStart, @Param("pageSize") int pageSize);
+    public List<Menu> getAllDish(@Param("title") String title, @Param("pageStart") int pageStart, @Param("pageSize") int pageSize);
 
-    public int getUserCounts(@Param("title") String title);
+    public int getDishCounts(@Param("title") String title);
 
     public int updateState(Integer id, Boolean state);
 
-    public int addUser(Menu user);
+    public int addDish(Menu user);
 
-    public int deleteUser(int id);
+    public int deleteDish(int id);
 
-    public Menu getUpdateUser(int id);
+    public Menu getUpdateDish(int id);
 
-    public int editUser(Menu user);
+    public int editDish(Menu user);
 
     public List<Menu> getType0Goods();
 

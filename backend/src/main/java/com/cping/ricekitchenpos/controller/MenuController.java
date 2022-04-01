@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin()
 @RequestMapping("/api")
 public class MenuController {
     @Autowired
@@ -25,14 +25,14 @@ public class MenuController {
     }
 
     @RequestMapping("/allmenu")
-    public String getUserList(MenuQueryInfo queryInfo) {
+    public String getDishList(MenuQueryInfo queryInfo) {
         System.out.println(queryInfo);
         //获取最大列表数和当前编号
         //模糊查询 也可以在set方法中写
-        int numbers = menuDao.getUserCounts("%" + queryInfo.getQuery() + "%");
+        int numbers = menuDao.getDishCounts("%" + queryInfo.getQuery() + "%");
         int pageStart = (queryInfo.getPageNum() - 1) * queryInfo.getPageSize();
 
-        List<Menu> users = menuDao.getAllUser("%" + queryInfo.getQuery() + "%", pageStart, queryInfo.getPageSize());
+        List<Menu> users = menuDao.getAllDish("%" + queryInfo.getQuery() + "%", pageStart, queryInfo.getPageSize());
         HashMap<String, Object> res = new HashMap<>();
         res.put("numbers", numbers);
         res.put("data", users);
@@ -41,35 +41,35 @@ public class MenuController {
     }
 
     @RequestMapping("/userstate")
-    public String updateUserState(@RequestParam("id") Integer id, @RequestParam("state") Boolean state) {
+    public String updateDishState(@RequestParam("id") Integer id, @RequestParam("state") Boolean state) {
         int i = menuDao.updateState(id, state);
         return i > 0 ? "success" : "error";
     }
 
-    @RequestMapping("/adduser")
-    public String addUser(@RequestBody Menu user) {
+    @RequestMapping("/adddish")
+    public String Menu(@RequestBody Menu menu) {
         //user.setRole("user");
-        user.setState(false);
-        int i = menuDao.addUser(user);
+        menu.setState(false);
+        int i = menuDao.addDish(menu);
         return i > 0 ? "success" : "error";
     }
 
-    @RequestMapping("/deleteuser")
-    public String deleteUser(int id) {
-        int i = menuDao.deleteUser(id);
+    @RequestMapping("/deletedish")
+    public String deleteMenu(int id) {
+        int i = menuDao.deleteDish(id);
         return i > 0 ? "success" : "error";
     }
 
     @RequestMapping("/getupdate")
-    public String getUpdateUser(int id){
-        Menu user = menuDao.getUpdateUser(id);
-        String string = JSON.toJSONString(user);
+    public String getUpdateMenu(int id){
+        Menu menu = menuDao.getUpdateDish(id);
+        String string = JSON.toJSONString(menu);
         return string;
     }
 
-    @RequestMapping("/edituser")
-    public String editUser(@RequestBody Menu user) {
-        int i = menuDao.editUser(user);
+    @RequestMapping("/editdish")
+    public String editMenu(@RequestBody Menu menu) {
+        int i = menuDao.editDish(menu);
         return i > 0 ? "success" : "error";
     }
 

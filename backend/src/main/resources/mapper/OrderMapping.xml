@@ -3,33 +3,64 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cping.ricekitchenpos.dao.OrderDao">
-    <select id="getOrderByCid" resultMap="orderMap">
-        select * from order_t where cid = #{cid}
-    </select>
+<!--    <select id="getOrderByCid" resultMap="orderMap">-->
+<!--        select * from order_t where cid = #{cid}-->
+<!--    </select>-->
+<!--    -->
 
-    <resultMap id="orderMap" type="com.cping.ricekitchenpos.entity.Order">
-        <id property="id" column="id"></id>
-        <!--
-            result代表普通字段的映射，分别指定列与属性的对应
+<!--    <resultMap id="orderMap" type="com.cping.ricekitchenpos.entity.Order">-->
+<!--        <id property="id" column="id"></id>-->
+<!--        &lt;!&ndash;-->
+<!--            result代表普通字段的映射，分别指定列与属性的对应-->
 
-            如果字段名和属性名一致，可以省略
+<!--            如果字段名和属性名一致，可以省略-->
 
-            属性名叫做payType，字段名pay_type;
-            <result column="pay_type" property="payType" />
-        -->
-        <result column="price" property="price"/>
-        <result column="paytype" property="paytype"/>
-        <!--
-            association关联，只要是"对一"的关系都可以使用association，代表关联
-            property代表Order类中的属性名u
-            column代表Orders表中的uid字段
-            select代表要使用该查询完成两表的联合查询得出user对象
-        -->
-        <association property="customer" column="cid" javaType="Customer" select="com.cping.ricekitchenpos.dao.CustomerDao.getCustomerById"></association>
-        <!--
-            collection 设置集合，只要是“对多”关系，都可以用collection代表集合
-            column代表的是orders表与details表关联的字段
-        -->
-        <collection property="orderDetails"  column="id" select="com.cping.ricekitchenpos.dao.OrderDetailDao.getDetailByOid" ofType="com.cping.ricekitchenpos.entity.OrderDetail"/>
+<!--            属性名叫做payType，字段名pay_type;-->
+<!--            <result column="pay_type" property="payType" />-->
+<!--        &ndash;&gt;-->
+<!--        <result column="price" property="price"/>-->
+<!--        <result column="paytype" property="paytype"/>-->
+<!--        &lt;!&ndash;-->
+<!--            association关联，只要是"对一"的关系都可以使用association，代表关联-->
+<!--            property代表Order类中的属性名u-->
+<!--            column代表Orders表中的uid字段-->
+<!--            select代表要使用该查询完成两表的联合查询得出user对象-->
+<!--        &ndash;&gt;-->
+<!--        <association property="customer" column="cid" javaType="Customer" select="com.cping.ricekitchenpos.dao.CustomerDao.getCustomerById"></association>-->
+<!--        &lt;!&ndash;-->
+<!--            collection 设置集合，只要是“对多”关系，都可以用collection代表集合-->
+<!--            column代表的是orders表与details表关联的字段-->
+<!--        &ndash;&gt;-->
+<!--        <collection property="orderDetails"  column="id" select="com.cping.ricekitchenpos.dao.OrderDetailDao.getDetailByOid" ofType="com.cping.ricekitchenpos.entity.OrderDetail"/>-->
+<!--    </resultMap>-->
+    <resultMap id="orderMenuMap" type="com.cping.ricekitchenpos.entity.Order">
+        <id column="oid" property="id"></id>
+        <result column="quantity" property="quantity"></result>
+        <result column="total" property="total"></result>
+        <result column="gmt_create" property="gmt_create"></result>
+        <collection property="orderList" ofType="com.cping.ricekitchenpos.entity.Menu">
+            <id column="mid" property="id"></id>
+            <result column="code" property="code"></result>
+            <result column="title" property="title"></result>
+            <result column="price" property="price"></result>
+            <result column="state" property="state"></result>
+            <result column="cid" property="cid"></result>
+        </collection>
     </resultMap>
+    <select id="findOrderAndMenuAll" resultMap="orderMenuMap">
+        SELECT * FROM orderlist o, order_menu om, menu m WHERE o.id=om.oid AND om.mid=m.id
+    </select>
+    <insert id="insertOrder" parameterType="com.cping.ricekitchenpos.entity.Order" useGeneratedKeys="true" keyProperty="id">
+            insert into orderlist(quantity,total,gmt_create)
+            values(#{quantity},#{total},now())
+    </insert>
+    <insert id="insertOrderMenu" parameterType="java.util.ArrayList">
+        insert into order_menu (oid, mid) values
+        <foreach collection="mid" item="item" index="index" separator="," >
+        (
+            ${id},
+            #{item.mid}
+            )
+        </foreach>
+    </insert>
 </mapper>

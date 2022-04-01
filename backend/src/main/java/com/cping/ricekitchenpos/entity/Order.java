@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -11,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Order {
     private int id;
-    private double price;
-    private String paytype;
-    private Customer customer;
-    private List<OrderDetail> orderDetails;
+    private int quantity;
+    private double total;
+    private Date gmt_create;
+    private List<Menu> orderList;
 }

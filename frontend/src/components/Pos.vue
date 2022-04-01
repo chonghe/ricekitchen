@@ -21,41 +21,40 @@
               <el-form ref="pickup" :model="pickup" label-width="80px">
                 <el-form-item label="Phone">
                   <el-input
-                  placeholder="Phone Number"
-                  prefix-icon="el-icon-phone"
-                  v-model="pickup.mobile"
+                    placeholder="Phone Number"
+                    prefix-icon="el-icon-phone"
+                    v-model="pickup.mobile"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item label="Name">
                   <el-input
-                  placeholder="Customer Name"
-                  prefix-icon="el-icon-user"
-                  v-model="pickup.username"
-                >
-                </el-input>
+                    placeholder="Customer Name"
+                    prefix-icon="el-icon-user"
+                    v-model="pickup.username"
+                  >
+                  </el-input>
                 </el-form-item>
                 <el-form-item label="Remark">
                   <el-input
-                  placeholder="Remark"
-                  prefix-icon="el-icon-collection-tag"
-                  v-model="pickup.remark"
-                >
-                </el-input>
+                    placeholder="Remark"
+                    prefix-icon="el-icon-collection-tag"
+                    v-model="pickup.remark"
+                  >
+                  </el-input>
                 </el-form-item>
                 <el-form-item label="Desc">
                   <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="Description"
-                  prefix-icon="el-icon-s-comment"
-                  v-model="pickup.desc"
-                >
-                </el-input>
+                    type="textarea"
+                    :rows="2"
+                    placeholder="Description"
+                    prefix-icon="el-icon-s-comment"
+                    v-model="pickup.desc"
+                  >
+                  </el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="danger">Cancel</el-button
-                  >
+                  <el-button type="danger">Cancel</el-button>
                   <el-button type="success" @click="toDinein">Submit</el-button>
                 </el-form-item>
               </el-form>
@@ -65,56 +64,55 @@
               <el-form ref="delivery" :model="delivery" label-width="80px">
                 <el-form-item label="Phone">
                   <el-input
-                  placeholder="Phone Number"
-                  prefix-icon="el-icon-phone"
-                  v-model="delivery.mobile"
+                    placeholder="Phone Number"
+                    prefix-icon="el-icon-phone"
+                    v-model="delivery.mobile"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item label="Address">
                   <el-input
-                  placeholder="Address"
-                  prefix-icon="el-icon-s-home"
-                  v-model="delivery.address"
+                    placeholder="Address"
+                    prefix-icon="el-icon-s-home"
+                    v-model="delivery.address"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item label="Name">
                   <el-input
-                  placeholder="Customer Name"
-                  prefix-icon="el-icon-user"
-                  v-model="delivery.username"
-                >
-                </el-input>
+                    placeholder="Customer Name"
+                    prefix-icon="el-icon-user"
+                    v-model="delivery.username"
+                  >
+                  </el-input>
                 </el-form-item>
                 <el-form-item label="Remark">
                   <el-input
-                  placeholder="Remark"
-                  prefix-icon="el-icon-collection-tag"
-                  v-model="delivery.remark"
-                >
-                </el-input>
+                    placeholder="Remark"
+                    prefix-icon="el-icon-collection-tag"
+                    v-model="delivery.remark"
+                  >
+                  </el-input>
                 </el-form-item>
                 <el-form-item label="Desc">
                   <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="Description"
-                  prefix-icon="el-icon-s-comment"
-                  v-model="delivery.desc"
-                >
-                </el-input>
+                    type="textarea"
+                    :rows="2"
+                    placeholder="Description"
+                    prefix-icon="el-icon-s-comment"
+                    v-model="delivery.desc"
+                  >
+                  </el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="danger">Cancel</el-button
-                  >
+                  <el-button type="danger">Cancel</el-button>
                   <el-button type="success" @click="toDinein">Submit</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
           </el-tabs>
         </el-col>
-        <el-col v-show="leftActiveName=='dinein'" :span="17">
+        <el-col v-show="leftActiveName == 'dinein'" :span="17">
           <!-- popular goods -->
           <div class="often-goods">
             <div class="title">Popular Food</div>
@@ -228,39 +226,6 @@
                 </ul>
               </el-tab-pane>
             </el-tabs>
-            <!-- <el-tabs v-model="activeName">
-              <el-tab-pane v-for="(type,index) in types" :key="type.id" 
-              :label="type.title" :name="type.title" @click="handleTab(index)" :class="{active:type.id==num}">
-                <div v-for="type in types" :key="type.id">
-                  <ul class="cookList">
-                    <li v-for="goods in type.mList" :key="goods.id"  v-show="index==num" @click="addOrderList(goods)">
-                        <small>{{goods.code}}-</small><br>
-                        <span>{{goods.title}}</span>
-                        <span>${{goods.price | numFilter}}</span>
-                    </li>
-                  </ul>
-                </div>
-              </el-tab-pane>
-            </el-tabs> -->
-            <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-              <el-form :model="form">
-                <el-form-item label="活动名称" :label-width="formLabelWidth">
-                  <el-input v-model="form.name" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="活动区域" :label-width="formLabelWidth">
-                  <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-form>
-              <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false"
-                  >确 定</el-button
-                >
-              </div>
-            </el-dialog>
           </div>
         </el-col>
       </el-row>
@@ -287,10 +252,10 @@ export default {
         remark: "",
         desc: "",
       },
-      delivery:{
-        mobile:'',
-        address:'',
-        username:'',
+      delivery: {
+        mobile: "",
+        address: "",
+        username: "",
         remark: "",
         desc: "",
       },
@@ -307,20 +272,20 @@ export default {
       type5Goods: [],
       num: 0,
       activeName: "type0",
-      leftActiveName:"dinein",
+      leftActiveName: "dinein",
 
       dialogFormVisible: false,
       form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
+        name: "",
+        region: "",
+        date1: "",
+        date2: "",
         delivery: false,
         type: [],
-        resource: '',
-        desc: ''
+        resource: "",
+        desc: "",
       },
-      formLabelWidth: '120px'
+      formLabelWidth: "120px",
     };
   },
   created() {
@@ -424,12 +389,12 @@ export default {
       this.totlaMoney = childValue1;
       this.totalCount = childValue2;
     },
-    toDinein(){
-      this.leftActiveName = "dinein"
+    toDinein() {
+      this.leftActiveName = "dinein";
     },
-    test(tab,event){
-      console.log(tab.$attrs['id'])
-    }
+    test(tab, event) {
+      console.log(tab.$attrs["id"]);
+    },
   },
   filters: {
     numFilter(value) {
@@ -441,5 +406,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -18,7 +18,7 @@
         select * from menu where state=1
     </select>
 
-    <select id="getAllUser" resultType="com.cping.ricekitchenpos.entity.Menu">
+    <select id="getAllDish" resultType="com.cping.ricekitchenpos.entity.Menu">
         --      如果username不是空,就拼接模糊查询
         select * from menu
         <if test="title !=null">
@@ -27,7 +27,7 @@
         limit #{pageStart},#{pageSize}
     </select>
 
-    <select id="getUserCounts" resultType="java.lang.Integer">
+    <select id="getDishCounts" resultType="java.lang.Integer">
         select count(*) from menu
         <if test="title !=null">
             where title like #{title}
@@ -38,24 +38,24 @@
         update menu set state = #{state} where id=#{id}
     </update>
 
-    <insert id="addUser">
+    <insert id="addDish">
         insert into menu
             (code,title,price,state,cid)
             value
             (#{code},#{title},#{price},#{state},#{cid})
     </insert>
 
-    <delete id="deleteUser">
+    <delete id="deleteDish">
         delete from menu where id = #{id}
     </delete>
 
-    <select id="getUpdateUser" resultType="com.cping.ricekitchenpos.entity.Menu">
+    <select id="getUpdateDish" resultType="com.cping.ricekitchenpos.entity.Menu">
         select * from menu where id = #{id}
     </select>
 
-    <update id="editUser">
-        update easyuser set username=#{code}, password=#{title},
-                            email=#{price} where id=#{id}
+    <update id="editDish">
+        update menu set code=#{code}, title=#{title},
+                            price=#{price}, state=#{state},cid=#{cid} where id=#{id}
     </update>
 
     <select id="getType0Goods" resultType="com.cping.ricekitchenpos.entity.Menu">

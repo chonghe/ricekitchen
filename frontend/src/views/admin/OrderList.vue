@@ -1,10 +1,10 @@
 <template>
   <div>
-    Menu List
+    Order List
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/home' }">Home</el-breadcrumb-item>
-      <el-breadcrumb-item>Menu manage</el-breadcrumb-item>
+      <el-breadcrumb-item>Order manage</el-breadcrumb-item>
       <!-- <el-breadcrumb-item>User manage</el-breadcrumb-item> -->
     </el-breadcrumb>
     <!-- main part -->
@@ -33,10 +33,10 @@
       </el-row>
       <!-- dish table-->
       <el-table :data="dishList" border stripe>
-        <el-table-column type="index"></el-table-column>
-        <el-table-column label="Code" prop="code"></el-table-column>
-        <el-table-column label="Good Title" prop="title"></el-table-column>
-        <el-table-column label="Price" prop="price"></el-table-column>
+        <el-table-column type="id"></el-table-column>
+        <el-table-column label="quantity" prop="quantity"></el-table-column>
+        <el-table-column label="total" prop="total"></el-table-column>
+        <el-table-column label="orderList" prop="orderList"></el-table-column>
         <el-table-column label="Status" prop="state">
           <!-- 作用域插槽 -->
           <template slot-scope="scope">
@@ -156,7 +156,7 @@
 <script>
 export default {
   created() {
-    this.getMenuList();
+    this.getOrderList();
   },
   data() {
     return {
@@ -166,7 +166,7 @@ export default {
         pageNum: 1, //当前页
         pageSize: 5, //每页最大数
       },
-      dishList: [], //用户列表
+      orderList: [],
       total: 0, //总记录数
       addDialogVisible: false, //对话框状态
       addForm: {
@@ -176,36 +176,36 @@ export default {
       },
       editForm: {},
       editDialogVisible: false,
-      // addFormRules: {
-      //   title: [
-      //     { required: true, message: "title is required", trigger: "blur" }, //必填项验证
-      //     { min: 5, max: 12, message: "5~12 longer", trigger: "blur" }, //长度验证
-      //   ],
-      // },
+      addFormRules: {
+        title: [
+          { required: true, message: "title is required", trigger: "blur" }, //必填项验证
+          { min: 5, max: 12, message: "5~12 longer", trigger: "blur" }, //长度验证
+        ],
+      },
       //修改表单验证
-      // editFormRules: {
-      //   code: [
-      //     { required: true, message: "code is required", trigger: "blur" }, //必填项验证
-      //     { min: 6, max: 10, message: "6~10 longer", trigger: "blur" }, //长度验证
-      //   ],
-      //   price: [
-      //     { required: true, message: "what is price address", trigger: "blur" }, //必填项验证
-      //     {
-      //       min: 6,
-      //       max: 15,
-      //       message: "please input your price",
-      //       trigger: "blur",
-      //     },
-      //   ],
-      // },
+      editFormRules: {
+        code: [
+          { required: true, message: "code is required", trigger: "blur" }, //必填项验证
+          { min: 6, max: 10, message: "6~10 longer", trigger: "blur" }, //长度验证
+        ],
+        price: [
+          { required: true, message: "what is price address", trigger: "blur" }, //必填项验证
+          {
+            min: 6,
+            max: 15,
+            message: "please input your price",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
-    async getMenuList() {
-      const { data: res } = await this.$http.get("allmenu", {
+    async getOrderList() {
+      const { data: res } = await this.$http.get("getAllOrder", {
         params: this.queryInfo,
       });
-      this.dishList = res.data;
+      this.orderList = res.orders;
       this.total = res.numbers;
     },
     //最大数
