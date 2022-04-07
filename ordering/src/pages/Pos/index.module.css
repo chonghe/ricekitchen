@@ -1,0 +1,45 @@
+.posOrder {
+  background-color: #f9fafc;
+  border-right: 1px solid #c0ccda;
+  height: 100%;
+}
+.title {
+  height: 20px;
+  border-bottom: 1px solid #d3dce6;
+  background-color: #f9fafc;
+  padding: 10px;
+  text-align: left;
+}
+.oftenGoodsList ul li {
+  list-style: none;
+  float: left;
+  border: 1px solid #e5e9f2;
+  padding: 10px;
+  margin: 10px;
+  background-color: #fff;
+  cursor: pointer;
+}
+.oPrice {
+  color: #58b7ff;
+}
+.cookList li {
+  list-style: none;
+  width: 23%;
+  border: 1px solid #e5e9f2;
+  height: 70px;
+  overflow: hidden;
+  background-color: #fff;
+  padding: 2px;
+  float: left;
+  margin: 2px;
+  cursor: pointer;
+}
+.cookList li span {
+  /* padding: 2px; */
+  display: block;
+  height: 60px;
+  float: left;
+}
+.goodsType {
+  clear: both;
+}

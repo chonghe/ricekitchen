@@ -1,0 +1,39 @@
+/* .div-btn {
+  margin-top: 10px;
+} */
+
+.goods-type {
+  clear: both;
+  /* height: auto;
+  overflow: hidden;
+  border-top: 1px solid #d3dce6; */
+}
+
+.foodImg {
+  width: 40%;
+}
+.foodName {
+  font-size: 18px;
+  padding-left: 10px;
+  color: brown;
+  text-align: center;
+}
+.foodPrice {
+  font-size: 16px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+/* .totalDiv {
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #d3dce6;
+} */
+/* .el-table{
+overflow:hidden !important;
+} */
+span {
+  white-space: pre;
+}
+.el-form {
+  margin: 0px 5px;
+}

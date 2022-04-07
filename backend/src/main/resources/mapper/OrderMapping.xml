@@ -55,12 +55,11 @@
             values(#{quantity},#{total},now())
     </insert>
     <insert id="insertOrderMenu" parameterType="java.util.ArrayList">
-        insert into order_menu (oid, mid) values
-        <foreach collection="mid" item="item" index="index" separator="," >
+        insert into orderdemo (quantity,total,gmt_create,item,item_count) values
+        <foreach collection="list" item="item" index="index" separator="," >
         (
-            ${id},
-            #{item.mid}
-            )
+            #{quantity},#{total},now(),#{item.title},#{item.count}
+        )
         </foreach>
     </insert>
 </mapper>

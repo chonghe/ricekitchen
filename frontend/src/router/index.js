@@ -11,8 +11,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Pos",
-    component: Pos,
+    name: "Login",
+    component: Login,
   },
   {
     path: "/login",

@@ -15,5 +15,5 @@ public class Order {
     private int quantity;
     private double total;
     private Date gmt_create;
-    private List<Menu> orderList;
+    private List orderList;
 }

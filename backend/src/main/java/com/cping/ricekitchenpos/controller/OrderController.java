@@ -33,18 +33,11 @@ public class OrderController {
         }
         return JSON.toJSONString(data);
     }
-    @PostMapping("/insertOrder")
-    public String addOrder(@RequestBody Order order) {
-        int i = orderDao.insertOrder(order);
-         // orderDao.insertOrderMenu(orderMenu);
-//        for (int j = 0; j < ids.getIds().length; j++) {
-//            orderMenu.setOid(order.getId());
-//            orderMenu.setMid(ids.getIds()[j]);
-//            orderMenuDao.insertOrderMenu(orderMenu);
-//        }
-        System.out.println(order.getId());
-        System.out.println(order.toString());
-        return i > 0 ? "success" : "error";
-
+    @RequestMapping("/insertorder")
+    //public String addOrder(@RequestParam(value="quantity",required=false) Integer quantity,@RequestParam(value="total",required = false) Double total) {
+    public String addOrder(@RequestBody Order order){
+        int i = orderDao.insertOrderMenu(order.getQuantity(),order.getTotal(),order.getOrderList());
+        // order.getOrderList().forEach(item-> System.out.println(item));
+        return null;
     }
 }

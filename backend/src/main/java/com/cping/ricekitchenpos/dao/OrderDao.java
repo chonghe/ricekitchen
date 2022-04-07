@@ -13,5 +13,5 @@ public interface OrderDao {
     public List<Order> findOrderAndMenuAll();
     public List<Menu> getAllOrder(@Param("title") String title, @Param("pageStart") int pageStart, @Param("pageSize") int pageSize);
     public int insertOrder(Order order);
-    public int insertOrderMenu(OrderMenu orderMenu);
+    public int insertOrderMenu(@Param("quantity") int quantity,@Param("total") double total,@Param("list") List orderList);
 }
