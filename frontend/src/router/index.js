@@ -25,7 +25,7 @@ const routes = [
     redirect: "/menu",
     children: [
       { path: "/menu", component: MenuList },
-      // { path: "/order", component: OrderList },
+      { path: "/order", component: OrderList },
     ],
   },
 ];

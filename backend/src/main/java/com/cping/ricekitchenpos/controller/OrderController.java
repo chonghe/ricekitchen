@@ -6,6 +6,7 @@ import com.cping.ricekitchenpos.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,5 +40,11 @@ public class OrderController {
         int i = orderDao.insertOrderMenu(order.getQuantity(),order.getTotal(),order.getOrderList());
         // order.getOrderList().forEach(item-> System.out.println(item));
         return null;
+    }
+    @GetMapping("/getorderList")
+    public String getOrderListByDate(){
+        List<OrderDemo> data = orderDao.getOrderList();
+        System.out.println(data);
+        return JSON.toJSONString(data);
     }
 }

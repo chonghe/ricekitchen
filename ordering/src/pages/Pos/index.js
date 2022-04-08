@@ -179,6 +179,13 @@ export default class Pos extends Component {
                           key={item.id}
                           onClick={() => this.addOrderList(item)}
                         >
+                          {item.code === "SP1" || item.code === "SP1.1" ? (
+                            <img
+                              src={require(`../../assets/${item.code}.png`)}
+                            />
+                          ) : (
+                            ""
+                          )}
                           <small>{item.code}-</small>
                           <br />
                           <span>{item.title}</span>

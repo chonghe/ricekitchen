@@ -5,150 +5,80 @@
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/home' }">Home</el-breadcrumb-item>
       <el-breadcrumb-item>Order manage</el-breadcrumb-item>
-      <!-- <el-breadcrumb-item>User manage</el-breadcrumb-item> -->
     </el-breadcrumb>
     <!-- main part -->
     <el-card>
       <el-row :gutter="25">
-        <!-- search -->
-        <el-col :span="10">
-          <el-input
-            placeholder="search by good's title"
-            v-model="queryInfo.query"
-            clearable
-            @clear="getMenuList"
-          >
-            <el-button
-              slot="append"
-              icon="el-icon-search"
-              @click="getMenuList"
-            ></el-button>
-          </el-input>
-        </el-col>
-        <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible = true"
-            >Add Good</el-button
-          >
-        </el-col>
-      </el-row>
-      <!-- dish table-->
-      <el-table :data="dishList" border stripe>
-        <el-table-column type="id"></el-table-column>
-        <el-table-column label="quantity" prop="quantity"></el-table-column>
-        <el-table-column label="total" prop="total"></el-table-column>
-        <el-table-column label="orderList" prop="orderList"></el-table-column>
-        <el-table-column label="Status" prop="state">
-          <!-- 作用域插槽 -->
-          <template slot-scope="scope">
-            <!-- {{scope.row}} 每一行封存的数据-->
-            <el-switch
-              v-model="scope.row.state"
-              @change="userStateChanged(scope.row)"
-            ></el-switch>
-          </template>
-        </el-table-column>
-        <el-table-column label="Option">
-          <template slot-scope="scope">
-            <!-- 修改 -->
-            <el-button
-              type="primary"
-              icon="el-icon-edit"
-              size="mini"
-              @click="showEditDialog(scope.row.id)"
-            ></el-button>
-            <!-- 删除 -->
-            <el-button
-              type="danger"
-              icon="el-icon-delete"
-              size="mini"
-              @click="deleteDish(scope.row.id)"
-            ></el-button>
-            <!-- 权限 -->
-            <!-- 文字提示 enterable 隐藏 -->
-            <!-- <el-tooltip
-              effect="dark"
-              content="Authorization"
-              placement="top-start"
-              :enterable="false"
+        <div class="container">
+          <div class="block">
+            <span class="demonstration">Day</span>
+            <el-date-picker
+              v-model="value1"
+              type="date"
+              placeholder="search by the day"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              @change="getDay"
             >
-              <el-button
-                type="warning"
-                icon="el-icon-setting"
-                size="mini"
-              ></el-button>
-            </el-tooltip> -->
-          </template>
+            </el-date-picker>
+            <span class="demonstration">Month</span>
+            <el-date-picker
+              v-model="value3"
+              type="month"
+              placeholder="search by the month"
+              @change="getMonth"
+            >
+            </el-date-picker>
+            <span class="demonstration">Year</span>
+            <el-date-picker
+              v-model="value4"
+              type="year"
+              placeholder="search by the year"
+              @change="getYear"
+            >
+            </el-date-picker>
+
+            <div class="block" style="margin-top:10px;float:right">
+              <span style="font-size:30px;color:red"
+                ><small style="color:black">Total Sales:</small>${{
+                  getTotal
+                }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </el-row>
+    </el-card>
+    <!-- dish table-->
+    <el-card style="margin-top:20px">
+      <div class="often-goods-list">
+        <ul>
+          <li
+            v-for="(goods, index) in orderListShow"
+            :key="index"
+            @click="getDetailList(goods.gmt_create)"
+          >
+            <small>{{ goods.gmt_create | formatDate }}</small
+            ><br />
+            <span>{{ goods.quantity }} <small>items</small></span
+            ><br />
+            <span style="color:red">&nbsp;${{ goods.total }}</span>
+          </li>
+        </ul>
+      </div>
+    </el-card>
+    <el-dialog
+      title="Order Detail"
+      :visible.sync="dialogVisible"
+      width="30%"
+      @close="dialogClosed"
+    >
+      <el-table :data="detailList" style="width: 100%">
+        <el-table-column prop="item" label="Item" width="180">
+        </el-table-column>
+        <el-table-column prop="item_count" label="Count" width="180">
         </el-table-column>
       </el-table>
-      <!-- 分页组件 size-change 每页最大变化书 current-change 当前最大变化 layout功能组件-->
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="queryInfo.pageNum"
-        :page-sizes="[1, 2, 5, 100]"
-        :page-size="queryInfo.pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
-      >
-      </el-pagination>
-    </el-card>
-
-    <!-- add dish -->
-    <el-dialog
-      title="Add Goods"
-      :visible.sync="addDialogVisible"
-      width="50%"
-      @close="addDialogClosed"
-    >
-      <el-form
-        :model="addForm"
-        :rules="addFormRules"
-        ref="addFormRef"
-        label-width="70px"
-      >
-        <el-form-item label="Code" prop="code">
-          <el-input v-model="addForm.code"></el-input>
-        </el-form-item>
-        <el-form-item label="Title" prop="title">
-          <el-input v-model="addForm.title"></el-input>
-        </el-form-item>
-        <el-form-item label="Price" prop="price">
-          <el-input v-model="addForm.price"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="addDish">Confirm</el-button>
-      </span>
-    </el-dialog>
-
-    <!-- modify dish -->
-    <el-dialog
-      title="Edit Goods"
-      :visible.sync="editDialogVisible"
-      width="50%"
-      @close="editDialogClosed"
-    >
-      <el-form
-        :model="editForm"
-        :rules="editFormRules"
-        ref="editFormRef"
-        label-width="70px"
-      >
-        <el-form-item label="Code" prop="code">
-          <el-input v-model="editForm.code"></el-input>
-        </el-form-item>
-        <el-form-item label="Title" prop="title">
-          <el-input v-model="editForm.title"></el-input>
-        </el-form-item>
-        <el-form-item label="Price" prop="price">
-          <el-input v-model="editForm.price"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="editDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="editDish">Confirm</el-button>
-      </span>
     </el-dialog>
   </div>
 </template>
@@ -160,130 +90,126 @@ export default {
   },
   data() {
     return {
-      //查询信息实体
-      queryInfo: {
-        query: "", //查询信息
-        pageNum: 1, //当前页
-        pageSize: 5, //每页最大数
-      },
+      value1: "",
+      value3: "",
+      value4: "",
       orderList: [],
-      total: 0, //总记录数
-      addDialogVisible: false, //对话框状态
-      addForm: {
-        title: "",
-        code: "",
-        price: "",
-      },
-      editForm: {},
-      editDialogVisible: false,
-      addFormRules: {
-        title: [
-          { required: true, message: "title is required", trigger: "blur" }, //必填项验证
-          { min: 5, max: 12, message: "5~12 longer", trigger: "blur" }, //长度验证
-        ],
-      },
-      //修改表单验证
-      editFormRules: {
-        code: [
-          { required: true, message: "code is required", trigger: "blur" }, //必填项验证
-          { min: 6, max: 10, message: "6~10 longer", trigger: "blur" }, //长度验证
-        ],
-        price: [
-          { required: true, message: "what is price address", trigger: "blur" }, //必填项验证
-          {
-            min: 6,
-            max: 15,
-            message: "please input your price",
-            trigger: "blur",
-          },
-        ],
-      },
+      dialogVisible: false,
+      detailList: [],
+      orderListShow: [],
     };
   },
   methods: {
-    async getOrderList() {
-      const { data: res } = await this.$http.get("getAllOrder", {
-        params: this.queryInfo,
-      });
-      this.orderList = res.orders;
-      this.total = res.numbers;
-    },
-    //最大数
-    handleSizeChange(newSize) {
-      this.queryInfo.pageSize = newSize;
-      this.getMenuList();
-    },
-    //pageNum的触发动作
-    handleCurrentChange(newPage) {
-      this.queryInfo.pageNum = newPage;
-      this.getMenuList();
-    },
-    async userStateChanged(userInfo) {
-      const { data: res } = await this.$http.put(
-        `userstate?id=${userInfo.id}&state=${userInfo.state}`
+    getDay() {
+      let currentDay = this.orderList.filter(
+        (ele) => this.formatDateBySearch(ele.gmt_create) === this.value1
       );
-      if (res != "success") {
-        userInfo.id = !userInfo.id;
-        return this.$message.error("Failed !!!");
+      this.orderListShow = this.filterFormatDate(currentDay);
+      this.value3 = "";
+      this.value4 = "";
+      if (!this.value1) {
+        location.reload();
       }
-      this.$message.success("success !!!");
     },
-    addDialogClosed() {
-      this.$refs.addFormRef.resetFields();
-    },
-    addDish() {
-      this.$refs.addFormRef.validate(async (valid) => {
-        if (!valid) return;
-        const { data: res } = await this.$http.post("adddish", this.addForm);
-        if (res != "success") {
-          return this.$message.error("Failed !!!");
-        }
-        this.$message.success("Success !!!");
-        this.addDialogVisible = false;
-        this.getMenuList();
-      });
-    },
-    async deleteDish(id) {
-      const confirmResult = await this.$confirm("Are you sure?", "warning", {
-        confirmButtonText: "confirm",
-        cancelButtonText: "cancel",
-        type: "warning",
-      }).catch((err) => err);
-      if (confirmResult != "confirm") {
-        //取消
-        return this.$message.info("canceled");
+    getMonth() {
+      let currentMonth = this.orderListShow.filter(
+        (ele) =>
+          new Date(ele.gmt_create).getMonth() ===
+          new Date(this.value3).getMonth()
+      );
+      this.orderListShow = currentMonth;
+      this.value1 = "";
+      this.value4 = "";
+      if (!this.value3) {
+        location.reload();
       }
-      const { data: res } = await this.$http.delete("deletedish?id=" + id);
-      if (res != "success") {
-        return this.$message.error("Failed !!!");
+    },
+    getYear() {
+      console.log(new Date(this.value4).getYear());
+      let currentYear = this.orderListShow.filter(
+        (ele) =>
+          new Date(ele.gmt_create).getYear() === new Date(this.value4).getYear()
+      );
+      this.orderListShow = currentYear;
+      this.value1 = "";
+      this.value3 = "";
+      if (!this.value4) {
+        location.reload();
       }
-      this.$message.success("Success !!!");
-      this.getMenuList();
     },
-    //修改操作
-    //显示对话框
-    async showEditDialog(id) {
-      const { data: res } = await this.$http.get("getupdate?id=" + id);
-      this.editForm = res;
-      this.editDialogVisible = true;
+    getDetailList(time) {
+      this.detailList = this.orderList.filter((ele) => ele.gmt_create === time);
+      this.dialogVisible = true;
     },
-    //关闭窗口
-    editDialogClosed() {
-      this.$refs.editFormRef.resetFields(); //重置信息
+    async getOrderList() {
+      const res = await this.$http.get("/getorderList");
+      this.orderList = res.data;
+      this.orderListShow = this.filterFormatDate(this.orderList);
     },
-    //确认修改
-    editDish() {
-      this.$refs.editFormRef.validate(async (valid) => {
-        if (!valid) return;
-        const { data: res } = await this.$http.put("editdish", this.editForm);
-        if (res != "success") {
-          return this.$message.error("Failed !!!");
-        }
-        this.$message.success("Success !!!");
-        //隐藏对话框
-        this.editDialogVisible = false;
-        this.getMenuList();
-      });
+    filterFormatDate(arr) {
+      var obj = {};
+      const newArr = arr.reduce((prev, cur) => {
+        obj[cur.gmt_create]
+          ? ""
+          : (obj[cur.gmt_create] = true && prev.push(cur));
+        return prev;
+      }, []);
+      return newArr;
+    },
+    formatDateBySearch(value) {
+      var date = new Date(value);
+      var y = date.getFullYear(); // 年份
+      var m = date.getMonth() + 1; // 月份，注意：js里的月要加1
+      if (m < 10) {
+        m = "0" + m;
+      }
+      var d = date.getDate(); // 日
+      if (d < 10) {
+        d = "0" + d;
+      }
+      var h = date.getHours(); // 小时
+      if (h < 10) {
+        h = "0" + h;
+      }
+      var min = date.getMinutes(); // 分钟
+      if (min < 10) {
+        min = "0" + min;
+      }
+      // 返回值，根据自己需求调整，现在已经拿到了年月日时分秒了
+      return y + "-" + m + "-" + d;
+    },
+    dialogClosed() {},
+  },
+  computed: {
+    getTotal() {
+      // return this.orderListShow.reduce((prev, cur) => prev + cur);
+      let total = 0;
+      this.orderListShow.map((item) => (total += item.total));
+      return total.toFixed(2);
+    },
+  },
+  filters: {
+    formatDate(value) {
+      var date = new Date(value);
+      var y = date.getFullYear(); // 年份
+      var m = date.getMonth() + 1; // 月份，注意：js里的月要加1
+      if (m < 10) {
+        m = "0" + m;
+      }
+      var d = date.getDate(); // 日
+      if (d < 10) {
+        d = "0" + d;
+      }
+      var h = date.getHours(); // 小时
+      if (h < 10) {
+        h = "0" + h;
+      }
+      var min = date.getMinutes(); // 分钟
+      if (min < 10) {
+        min = "0" + min;
+      }
+      // 返回值，根据自己需求调整，现在已经拿到了年月日时分秒了
+      return y + "-" + m + "-" + d + " " + h + ":" + min;
     },
   },
 };
@@ -294,5 +220,14 @@ export default {
 .el-breadcrumb {
   margin-bottom: 15px;
   font-size: 17px;
+}
+.often-goods-list ul li {
+  list-style: none;
+  float: left;
+  border: 1px solid #e5e9f2;
+  padding: 10px;
+  margin: 10px;
+  background-color: #fff;
+  cursor: pointer;
 }
 </style>

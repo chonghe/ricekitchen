@@ -62,4 +62,7 @@
         )
         </foreach>
     </insert>
+    <select id="getOrderList" resultType="com.cping.ricekitchenpos.entity.OrderDemo">
+        select * from orderdemo
+    </select>
 </mapper>

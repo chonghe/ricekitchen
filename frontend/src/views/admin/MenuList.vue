@@ -63,20 +63,6 @@
               size="mini"
               @click="deleteDish(scope.row.id)"
             ></el-button>
-            <!-- 权限 -->
-            <!-- 文字提示 enterable 隐藏 -->
-            <!-- <el-tooltip
-              effect="dark"
-              content="Authorization"
-              placement="top-start"
-              :enterable="false"
-            >
-              <el-button
-                type="warning"
-                icon="el-icon-setting"
-                size="mini"
-              ></el-button>
-            </el-tooltip> -->
           </template>
         </el-table-column>
       </el-table>
@@ -100,12 +86,7 @@
       width="50%"
       @close="addDialogClosed"
     >
-      <el-form
-        :model="addForm"
-        :rules="addFormRules"
-        ref="addFormRef"
-        label-width="70px"
-      >
+      <el-form :model="addForm" ref="addFormRef" label-width="70px">
         <el-form-item label="Code" prop="code">
           <el-input v-model="addForm.code"></el-input>
         </el-form-item>
@@ -129,12 +110,7 @@
       width="50%"
       @close="editDialogClosed"
     >
-      <el-form
-        :model="editForm"
-        :rules="editFormRules"
-        ref="editFormRef"
-        label-width="70px"
-      >
+      <el-form :model="editForm" ref="editFormRef" label-width="70px">
         <el-form-item label="Code" prop="code">
           <el-input v-model="editForm.code"></el-input>
         </el-form-item>
@@ -176,28 +152,6 @@ export default {
       },
       editForm: {},
       editDialogVisible: false,
-      // addFormRules: {
-      //   title: [
-      //     { required: true, message: "title is required", trigger: "blur" }, //必填项验证
-      //     { min: 5, max: 12, message: "5~12 longer", trigger: "blur" }, //长度验证
-      //   ],
-      // },
-      //修改表单验证
-      // editFormRules: {
-      //   code: [
-      //     { required: true, message: "code is required", trigger: "blur" }, //必填项验证
-      //     { min: 6, max: 10, message: "6~10 longer", trigger: "blur" }, //长度验证
-      //   ],
-      //   price: [
-      //     { required: true, message: "what is price address", trigger: "blur" }, //必填项验证
-      //     {
-      //       min: 6,
-      //       max: 15,
-      //       message: "please input your price",
-      //       trigger: "blur",
-      //     },
-      //   ],
-      // },
     };
   },
   methods: {

@@ -74,12 +74,12 @@ export default {
         if (!valid) return; //验证失败 取反，验证不通过就跳出 返回， 什么都不做
         const { data: res } = await this.$http.post("login", this.loginForm); //访问后台 传递参数
         if (res.flag == "ok") {
-          this.$message.success("operation success");
+          this.$message.success("login success");
           window.sessionStorage.setItem("user", res.user); //存储user对象
           this.$router.push({ path: "/home" });
           //console.log(res.user);
         } else {
-          this.$message.error("operation failed");
+          this.$message.error("username or password is not correct!!!");
         }
       });
     },
